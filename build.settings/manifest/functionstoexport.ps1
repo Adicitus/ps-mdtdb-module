@@ -18,6 +18,7 @@
     'Get-MDTComputer'
     'Get-MDTComputerAdministrator'
     'Get-MDTComputerApplication'
+    'Get-MDTComputerIdentity'
     'Get-MDTComputerPackage'
     'Get-MDTComputerRole'
     'Get-MDTLocation'

@@ -1,4 +1,4 @@
-function Get-MDTComputer {
+function Get-MDTComputerIdentity {
 
     [CmdletBinding()]
     PARAM
@@ -13,21 +13,19 @@ function Get-MDTComputer {
     
     Process
     {
-        $sql = "SELECT ci.Description, ci.AssetTag, ci.UUID, ci.SerialNumber, ci.MacAddress, s.* FROM dbo.ComputerIdentity AS ci INNER JOIN dbo.Settings AS S ON s.id = ci.id WHERE s.Type = 'C'"
-
         # Build a select statement based on what parameters were specified
         if ($id -eq "" -and $assetTag -eq "" -and $macAddress -eq "" -and $serialNumber -eq "" -and $uuid -eq "" -and $description -eq "")
         {
-            $sql = $sql
+            $sql = "SELECT * FROM ComputerIdentity"
         }
         elseif ($id -ne "")
         {
-            $sql = "$sql AND ci.ID = $id"
+            $sql = "SELECT * FROM ComputerIdentity WHERE ID = $id"
         }
         else
         {
             # Specified the initial command
-            $sql = "$sql AND"
+            $sql = "SELECT * FROM ComputerIdentity WHERE "
         
             # Add the appropriate where clauses
             if ($assetTag -ne "")
@@ -66,7 +64,7 @@ function Get-MDTComputer {
     
         $selectAdapter = New-Object System.Data.SqlClient.SqlDataAdapter($sql, $mdtSQLConnection)
         $selectDataset = New-Object System.Data.Dataset
-        $null = $selectAdapter.Fill($selectDataset, "Settings")
+        $null = $selectAdapter.Fill($selectDataset, "ComputerIdentity")
         $selectDataset.Tables[0].Rows
     }
 }
