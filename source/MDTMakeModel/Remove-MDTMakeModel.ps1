@@ -12,10 +12,10 @@ function Remove-MDTMakeModel {
         $delCommand = "DELETE FROM MakeModelIdentity WHERE ID = $id"
         
         # Issue the delete command
-        Write-Verbose "About to issue command: $delCommand"
+        Write-Debug "About to issue command: $delCommand"
         $cmd = New-Object System.Data.SqlClient.SqlCommand($delCommand, $mdtSQLConnection)
         $null = $cmd.ExecuteScalar()
 
-        Write-Host "Removed the make model with ID = $id."
+        Write-Debug "Removed the make model with ID = $id."
     }
 }

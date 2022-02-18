@@ -23,11 +23,11 @@ function Set-MDTRole {
         $sql = "$sql WHERE ID = $id AND Type = 'R'"
         
         # Execute the command
-        Write-Verbose "About to execute command: $sql"        
+        Write-Debug "About to execute command: $sql"        
         $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
         $null = $settingsCmd.ExecuteScalar()
             
-        Write-Host "Added settings for the specified role"
+        Write-Debug "Added settings for the specified role"
         
         # Write the updated record back to the pipeline
         Get-MDTRole -ID $id

@@ -23,11 +23,11 @@ function Set-MDTMakeModel {
         $sql = "$sql WHERE ID = $id AND Type = 'M'"
         
         # Execute the command
-        Write-Verbose "About to execute command: $sql"        
+        Write-Debug "About to execute command: $sql"        
         $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
         $null = $settingsCmd.ExecuteScalar()
             
-        Write-Host "Added settings for the specified make model"
+        Write-Debug "Added settings for the specified make model"
         
         # Write the updated record back to the pipeline
         Get-MDTMakeModel -ID $id

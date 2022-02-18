@@ -29,9 +29,9 @@ function Remove-MDTPackageMapping {
         }
         
         # Execute the delete command
-        Write-Verbose "About to execute command: $sql"
+        Write-Debug "About to execute command: $sql"
         $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
         $null = $settingsCmd.ExecuteScalar()
-        Write-Host "Removed package mapping records matching the specified parameters."    
+        Write-Debug "Removed package mapping records matching the specified parameters."    
     }
 }

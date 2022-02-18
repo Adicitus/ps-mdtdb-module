@@ -11,10 +11,10 @@ function New-MDTPackageMapping {
     {
         # Insert a new row
         $sql = "INSERT INTO PackageMapping (ARPName, Packages) VALUES ('$ARPName','$package')"
-        Write-Verbose "About to execute command: $sql"
+        Write-Debug "About to execute command: $sql"
         $identityCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
         $null = $identityCmd.ExecuteScalar()
-        Write-Verbose "Added package mapping record for $ARPName"
+        Write-Debug "Added package mapping record for $ARPName"
     
         # Write the new record back to the pipeline
         Get-MDTPackageMapping -ARPName $ARPName

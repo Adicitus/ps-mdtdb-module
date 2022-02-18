@@ -27,11 +27,11 @@ function Set-MDTLocation {
             $sql = "$sql WHERE ID = $id AND Type = 'L'"
         
             # Execute the command
-            Write-Verbose "About to execute command: $sql"        
+            Write-Debug "About to execute command: $sql"        
             $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
             $null = $settingsCmd.ExecuteScalar()
             
-            Write-Host "Added settings for the specified location"
+            Write-Debug "Added settings for the specified location"
         }
         
         # If there are some gateways save them
@@ -41,7 +41,7 @@ function Set-MDTLocation {
             $delCommand = "DELETE FROM LocationIdentity_DefaultGateway WHERE ID = $id"
         
             # Issue the delete command
-            Write-Verbose "About to issue command: $delCommand"
+            Write-Debug "About to issue command: $delCommand"
             $cmd = New-Object System.Data.SqlClient.SqlCommand($delCommand, $mdtSQLConnection)
             $null = $cmd.ExecuteScalar()
             
@@ -50,12 +50,12 @@ function Set-MDTLocation {
             {
                 # Insert the  row
                 $sql = "INSERT INTO LocationIdentity_DefaultGateway (ID, DefaultGateway) VALUES ($id, '$gateway')"
-                Write-Verbose "About to execute command: $sql"
+                Write-Debug "About to execute command: $sql"
                 $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
                 $null = $settingsCmd.ExecuteScalar()
 
             }
-            Write-Host "Set the default gateways for the location with ID = $id."    
+            Write-Debug "Set the default gateways for the location with ID = $id."    
         }
         
         # Write the updated record back to the pipeline

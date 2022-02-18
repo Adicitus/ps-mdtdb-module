@@ -11,10 +11,10 @@ function Set-MDTPackageMapping {
     {
         # Update the row
         $sql = "UPDATE PackageMapping SET Packages = '$package' WHERE ARPName = '$ARPName'"
-        Write-Verbose "About to execute command: $sql"
+        Write-Debug "About to execute command: $sql"
         $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
         $null = $settingsCmd.ExecuteScalar()
-        Write-Host "Updated the package mapping record for $ARPName to install package $package."    
+        Write-Debug "Updated the package mapping record for $ARPName to install package $package."    
         
         # Write the updated record back to the pipeline
         Get-MDTPackageMapping -ARPName $ARPName

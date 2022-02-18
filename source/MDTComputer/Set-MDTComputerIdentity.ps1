@@ -22,11 +22,11 @@ function Set-MDTComputerIdentity {
             $sql = "$sql WHERE ID = $id"
             
             # Execute the command
-            Write-Verbose "About to execute command: $sql"        
+            Write-Debug "About to execute command: $sql"        
             $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
             $null = $settingsCmd.ExecuteScalar()
                 
-            Write-Verbose "Update settings for the specified computer"
+            Write-Debug "Update settings for the specified computer"
             
             # Write the updated record back to the pipeline
             Get-MDTComputer -ID $id

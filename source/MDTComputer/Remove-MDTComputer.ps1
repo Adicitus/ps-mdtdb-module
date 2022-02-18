@@ -12,10 +12,10 @@ function Remove-MDTComputer {
         $delCommand = "DELETE FROM ComputerIdentity WHERE ID = $id"
         
         # Issue the delete command
-        Write-Verbose "About to issue command: $delCommand"
+        Write-Debug "About to issue command: $delCommand"
         $cmd = New-Object System.Data.SqlClient.SqlCommand($delCommand, $mdtSQLConnection)
         $null = $cmd.ExecuteScalar()
 
-        Write-Host "Removed the computer with ID = $id."
+        Write-Debug "Removed the computer with ID = $id."
     }
 }

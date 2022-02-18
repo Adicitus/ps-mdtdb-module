@@ -40,7 +40,7 @@ function Connect-MDTDatabase {
     }
     
     # Make the connection and save it in a global variable
-    Write-Host "Connecting to: $mdtSQLConnectString"
+    Write-Debug "Connecting to: $mdtSQLConnectString"
     $global:mdtSQLConnection = new-object System.Data.SqlClient.SqlConnection
     $global:mdtSQLConnection.ConnectionString = $mdtSQLConnectString
     $global:mdtSQLConnection.Open()

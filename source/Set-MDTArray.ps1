@@ -18,7 +18,7 @@ function Set-MDTArray {
     {
         # Insert the  row
         $sql = "INSERT INTO $table (Type, ID, Sequence, $column) VALUES ('$type', $id, $seq, '$item')"
-        Write-Verbose "About to execute command: $sql"
+        Write-Debug "About to execute command: $sql"
         $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
         $null = $settingsCmd.ExecuteScalar()
 
@@ -26,5 +26,5 @@ function Set-MDTArray {
         $seq = $seq + 1
     }
         
-    Write-Host "Added records to $table for Type = $type and ID = $id."
+    Write-Debug "Added records to $table for Type = $type and ID = $id."
 }

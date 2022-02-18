@@ -12,20 +12,20 @@ function New-MDTMakeModel {
     {
         # Insert a new role row and get the identity result
         $sql = "INSERT INTO MakeModelIdentity (Make, Model) VALUES ('$make', '$model') SELECT @@IDENTITY"
-        Write-Verbose "About to execute command: $sql"
+        Write-Debug "About to execute command: $sql"
         $identityCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
         $identity = $identityCmd.ExecuteScalar()
-        Write-Verbose "Added make model identity record"
+        Write-Debug "Added make model identity record"
     
         # Insert the settings row, adding the values as specified in the hash table
         $settingsColumns = $settings.Keys -join ","
         $settingsValues = $settings.Values -join "','"
         $sql = "INSERT INTO Settings (Type, ID, $settingsColumns) VALUES ('M', $identity, '$settingsValues')"
-        Write-Verbose "About to execute command: $sql"
+        Write-Debug "About to execute command: $sql"
         $settingsCmd = New-Object System.Data.SqlClient.SqlCommand($sql, $mdtSQLConnection)
         $null = $settingsCmd.ExecuteScalar()
             
-        Write-Host "Added settings for the specified make model"
+        Write-Debug "Added settings for the specified make model"
         
         # Write the new record back to the pipeline
         Get-MDTMakeModel -ID $identity
