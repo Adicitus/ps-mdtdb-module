@@ -13,6 +13,11 @@ function Get-MDTComputerIdentity {
     
     Process
     {
+
+        if ($macAddress) {
+            $macAddress = _ensureMACAddressFormat $macAddress
+        }
+
         # Build a select statement based on what parameters were specified
         if ($id -eq "" -and $assetTag -eq "" -and $macAddress -eq "" -and $serialNumber -eq "" -and $uuid -eq "" -and $description -eq "")
         {

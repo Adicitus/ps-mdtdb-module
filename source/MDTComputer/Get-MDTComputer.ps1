@@ -13,6 +13,11 @@ function Get-MDTComputer {
     
     Process
     {
+
+        if ($macAddress) {
+            $macAddress = _ensureMACAddressFormat $macAddress
+        }
+
         $sql = "SELECT ci.Description, ci.AssetTag, ci.UUID, ci.SerialNumber, ci.MacAddress, s.* FROM dbo.ComputerIdentity AS ci INNER JOIN dbo.Settings AS S ON s.id = ci.id WHERE s.Type = 'C'"
 
         # Build a select statement based on what parameters were specified

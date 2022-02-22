@@ -8,6 +8,11 @@ function Set-MDTComputerIdentity {
         
         Process
         {
+
+            if ($settings.ContainsKey('MacAddress')) {
+                $settings.macAddress = _ensureMACAddressFormat $settings.macAddress
+            } 
+
             # Add each each hash table entry to the update statement
             $sql = "UPDATE ComputerIdentity SET"
             foreach ($setting in $settings.GetEnumerator())

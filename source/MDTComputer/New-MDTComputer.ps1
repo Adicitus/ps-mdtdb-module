@@ -4,6 +4,7 @@ function New-MDTComputer {
     PARAM
     (
         [Parameter(ValueFromPipelineByPropertyName=$true)] $assetTag,
+        [ValidatePattern('^(([0-9A-F]{2}){5}|([0-9A-F]{2}-){5}|([0-9A-F]{2}:){5})[0-9A-F]{2}$')]
         [Parameter(ValueFromPipelineByPropertyName=$true)] $macAddress,
         [Parameter(ValueFromPipelineByPropertyName=$true)] $serialNumber,
         [Parameter(ValueFromPipelineByPropertyName=$true)] $uuid,
@@ -13,6 +14,10 @@ function New-MDTComputer {
 
     Process
     {
+        if ($macAddress) {
+            $macAddress = _ensureMACAddressFormat $macAddress
+        }
+        
         # Insert a new computer row and get the identity result
         $sql = "INSERT INTO ComputerIdentity (AssetTag, SerialNumber, MacAddress, UUID, Description) VALUES ('$assetTag', '$serialNumber', '$macAddress', '$uuid', '$description') SELECT @@IDENTITY"
         Write-Debug "About to execute command: $sql"
